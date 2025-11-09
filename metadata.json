@@ -1,0 +1,5 @@
+{
+  "name": "CreatiTube - Share Your Creativity",
+  "description": "A platform similar to YouTube where users can upload and share videos, images, and shorts of their creative work. The platform features AI-powered content recommendations based on user interests, a music library for video editing, and familiar social features like comments and likes.",
+  "requestFramePermissions": []
+}
