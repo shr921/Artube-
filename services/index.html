@@ -37,6 +37,26 @@
         animation: fadeInUp 0.3s ease-out forwards;
       }
     </style>
+    <script>
+      window.addEventListener('error', function(event) {
+        document.body.innerHTML = ''; // Clear the blank page
+        const errorElement = document.createElement('div');
+        errorElement.style.position = 'fixed';
+        errorElement.style.top = '0';
+        errorElement.style.left = '0';
+        errorElement.style.right = '0';
+        errorElement.style.bottom = '0';
+        errorElement.style.padding = '20px';
+        errorElement.style.backgroundColor = '#111827';
+        errorElement.style.color = '#fecaca';
+        errorElement.style.fontFamily = 'monospace';
+        errorElement.style.fontSize = '14px';
+        errorElement.style.zIndex = '9999';
+        errorElement.style.overflow = 'auto';
+        errorElement.innerHTML = `<h1 style="color: #f87171; font-size: 24px; margin-bottom: 20px;">Application Error</h1><pre style="white-space: pre-wrap; word-wrap: break-word;"><strong>Error:</strong> ${event.message}\n<strong>File:</strong> ${event.filename}\n<strong>Line:</strong> ${event.lineno}, <strong>Column:</strong> ${event.colno}</pre>`;
+        document.body.appendChild(errorElement);
+      });
+    </script>
   <script type="importmap">
 {
   "imports": {

@@ -1,10 +1,7 @@
-
-
-
 import React, { useState, useEffect, useMemo } from 'react';
 import { Video, User, Product } from '../types';
 import { Icon } from './Icons';
-import { getVideoHighlights } from '../services/geminiService';
+import { getVideoHighlights, UNAVAILABLE_MSG, ERROR_MSG } from '../services/geminiService';
 import { CommentSection } from './CommentSection';
 
 interface VideoPlayerProps {
@@ -33,15 +30,15 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({ video, onClose, curren
       setIsSummaryLoading(true);
       setSummaryError(null);
       setAiSummary(null);
-      try {
-        const summary = await getVideoHighlights(video.title, video.description);
-        setAiSummary(summary);
-      } catch (error) {
-        console.error("Failed to get AI summary:", error);
-        setSummaryError("Could not generate AI highlights for this video.");
-      } finally {
-        setIsSummaryLoading(false);
+      
+      const result = await getVideoHighlights(video.title, video.description);
+      
+      if (result.startsWith(UNAVAILABLE_MSG) || result.startsWith(ERROR_MSG)) {
+        setSummaryError(result);
+      } else {
+        setAiSummary(result);
       }
+      setIsSummaryLoading(false);
     };
 
     fetchSummary();

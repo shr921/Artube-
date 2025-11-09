@@ -18,15 +18,14 @@ export const RecommendationEngine: React.FC<RecommendationEngineProps> = ({ onSe
     }
     setIsLoading(true);
     setError(null);
-    try {
-      const topics = await getPersonalizedTopics(query);
-      onSearch(topics);
-    } catch (err) {
-      setError('Failed to get search results. Please try again.');
-      console.error(err);
-    } finally {
-      setIsLoading(false);
+    
+    const result = await getPersonalizedTopics(query);
+    onSearch(result.topics);
+    if (result.error) {
+      setError(result.error);
     }
+    
+    setIsLoading(false);
   }, [query, onSearch]);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
